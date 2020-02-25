@@ -64,8 +64,8 @@ const useStyles = makeStyles(theme => ({
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      width: '99vw',
-      height: '50vh'
+      width: '100vw',
+      height: '50vh' 
     } 
   
   })
@@ -121,6 +121,7 @@ export default function Slider() {
       <span style={{ paddingTop: '40px' , paddingBottom:'40px' ,paddingRight:'15px' , background: 'rgba(98, 98, 98, 0.6)' , borderRadius:'10px' }}>
 
         <TextField
+          xs='12'
           className={classes.city_field}
           variant="outlined"
           id="outlined-select-currency-native"
@@ -184,13 +185,8 @@ export default function Slider() {
           <Button variant="outlined" className={classes.searchBtn}>Serach</Button>
 
           </span>
-{/*       
-          </Grid>
-       </Grid> */}
-     
 
-    </div>
-
+       </div>
   </div>
   );
 }

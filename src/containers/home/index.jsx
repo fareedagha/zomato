@@ -1,12 +1,13 @@
 import React from 'react';
-import {Navbar , Slider , Footer } from '../../components/index'
+import {Navbar , Slider , Footer , AddResturant } from '../../components/index'
 
 class Home extends React.Component {
     render() {
       return(
-          <div>
+          <div> 
               <Navbar/>
-              <Slider/>
+              <AddResturant/>
+              {/* <Slider/> */}
               <Footer/>
           </div>
 
