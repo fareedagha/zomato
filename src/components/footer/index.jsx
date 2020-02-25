@@ -9,14 +9,10 @@ import PhoneIcon from '@material-ui/icons/Phone';
 const useStyles = makeStyles(theme => ({
  
     root: {
-    flexGrow: 1,
     backgroundColor : 'rgb(40 , 44 , 53)',
     textAlign : 'center' ,
     padding : '10px' ,
-    position: 'absolute' ,
-    left : 0 ,
-    bottom : 0 ,
-    right : 0 
+    width : '100%' ,
   },
 
   paper: {
