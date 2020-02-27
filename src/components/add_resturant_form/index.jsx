@@ -1,7 +1,6 @@
-import React from 'react';
-import './index.css'
+import React , {Component}from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid , Paper , Select , MenuItem , Checkbox , Button , InputLabel , TextField , Radio , FormControl , FormGroup , FormLabel , FormControlLabel , RadioGroup }from '@material-ui/core'
+import { Grid , Paper , Select , MenuItem , Checkbox , Button , InputLabel , TextField , Radio , FormControl , FormGroup , FormLabel , FormControlLabel , RadioGroup }  from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
@@ -413,14 +412,10 @@ render(){
                     </div>
 
                     
-                    <Button className={classes.submit_btn} fullWidth='true' variant="outlined"  size = 'large'> Sumit </Button>
+                    <Button className={classes.submit_btn} fullWidth='true' variant="outlined"  size = 'large'> Submit </Button>
 
                 </div>
-                        }
-
-
-
-
+             }
 
             </div>
         </Grid>

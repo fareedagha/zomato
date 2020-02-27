@@ -1,9 +1,9 @@
 import Footer from './footer/index'
 import Navbar from './navbar/index'
-import Slider from './slider/index'
-import AddResturant from './signup_Resturant/index'
+import Home from './home/index'
+import AddResturantForm from './add_resturant_form/index'
 
 
 export  {
-    Footer , Navbar , Slider , AddResturant
+    Footer , Navbar , Home , AddResturantForm
 }

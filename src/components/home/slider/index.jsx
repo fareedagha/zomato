@@ -1,6 +1,5 @@
 import React from 'react';
-// import '../../bootstrap.min.css';
- import SlideImage from '../../images/slide_image.jpg'
+import SlideImage from '../../../images/slide_image.jpg'
 import './styles.css'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +7,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
-import Grid from '@material-ui/core/Grid';
 import { Button} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -64,7 +62,7 @@ const useStyles = makeStyles(theme => ({
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      width: '100vw',
+      width: '99vw',
       height: '50vh' 
     } 
   
@@ -112,11 +110,6 @@ export default function Slider() {
   <div className={classes.slideImageDiv}>
 
     <div className={classes.searchDiv} >
-    
-      {/* <Grid container  justify="center" spacing={0}>
-      <Grid item xs={10}  className={classes.shadow}> */}
-
-   
 
       <span style={{ paddingTop: '40px' , paddingBottom:'40px' ,paddingRight:'15px' , background: 'rgba(98, 98, 98, 0.6)' , borderRadius:'10px' }}>
 

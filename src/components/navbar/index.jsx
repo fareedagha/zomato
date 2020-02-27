@@ -1,6 +1,9 @@
 import React from 'react';
+
+import {Link} from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar , Toolbar , Button ,TextField ,Typography , Drawer , Modal , Fade , Backdrop , Grid , InputAdornment} from '@material-ui/core'
+import { AppBar , Toolbar , Button ,TextField ,Typography , Box ,Drawer , Modal , Fade , Backdrop , Divider , Grid , InputAdornment} from '@material-ui/core'
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PasswordIcon from '@material-ui/icons/LockOpen';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -12,6 +15,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import LoginSignupIcon from '@material-ui/icons/ExitToAppSharp';
+import RestaurantIcon from '@material-ui/icons/RestaurantSharp';
 
 
 
@@ -44,6 +49,10 @@ const useStyles = makeStyles(theme => ({
   login_signup_btn:{
    color : 'white',
    fontSize : '15px'
+  },
+
+  box:{
+  minWidth : '250px'
   },
 
   //  Modal css  
@@ -81,6 +90,13 @@ facebook_btn:{
   },
   },
  
+//  link_btn : {
+//    height : 'auto' ,
+//   '&:hover': {
+//     textDecoration : 'none'
+//   },
+//  },
+
 
 gmail_btn:{
   backgroundColor : 'rgb(206 , 0 , 0)' ,
@@ -98,8 +114,8 @@ gmail_btn:{
     width: 250,
   },
   fullList: {
-    width: 'auto',
-  },
+    width: '300px',
+  }
   
  })
 );
@@ -111,11 +127,11 @@ export default function Navbar() {
   const [openSignup, setOpenSignup]  = React.useState(false);
   const [leftDrawer, setDrawer] = React.useState(false)
 
-  const toggleDrawer = (side, open) => event => {
+  const toggleDrawer = (open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    setDrawer(true);
+    setDrawer(open);
   };
 
 
@@ -143,20 +159,29 @@ export default function Navbar() {
   <div
       className={classes.fullList}
       role="presentation"
-      onClick={toggleDrawer(side , false)}
-      onKeyDown={toggleDrawer(side , false)}
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
     >
+
+        <Typography variant="h4" className={classes.title}>
+          <b><i>Zomato</i></b>
+        </Typography>
+
+      <Divider/>
+
       <List>
         
-          <ListItem button>
-            <ListItemIcon> <FacebookIcon/> </ListItemIcon>
-            <ListItemText primary="Facebook" />
+          <ListItem button onClick={handleLoginOpen}>
+            <ListItemIcon> <LoginSignupIcon /> </ListItemIcon>
+            <ListItemText primary="Login/Signup" />
           </ListItem>
 
-          <ListItem button>
-            <ListItemIcon> <FacebookIcon/> </ListItemIcon>
-            <ListItemText primary="Facebook" />
-          </ListItem>
+          <Link to="/addResturant" style={{textDecoration : 'none' , color : 'black'}}>
+            <ListItem button>
+              <ListItemIcon> <RestaurantIcon /> </ListItemIcon>
+              <ListItemText primary="Add Resturant" />
+            </ListItem>
+          </Link>
 
       </List>
 
@@ -166,23 +191,36 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
 
-      <Drawer open={leftDrawer} onClose={toggleDrawer('leftDrawer', false)}>
+      <Drawer open={leftDrawer} onClose={toggleDrawer(false)}>
         {sideList('setDrawer')}
       </Drawer>
 
       <AppBar position="static" style={{backgroundColor : 'rgb(206 , 0 , 0)' }}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon onClick={toggleDrawer('leftDrawer', true)} />
+
+        <Box display={{ xs: 'block' , sm:'block'  , lg: 'none', xl: 'none' }}>
+          <IconButton  edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon onClick={toggleDrawer(true)} />
           </IconButton>
+       </Box>
+
+
+
           <Typography variant="h4" className={classes.title}>
             <b><i>Zomato</i></b>
           </Typography>
 
+
+          <Box display={{ xs: 'none' , sm:'none'  , lg: 'block', xl: 'block' }}>
           <Button className={classes.login_signup_btn} onClick={handleLoginOpen} >Login / Signup</Button>
-        
-          <Button className={classes.signup_resturant}>Add Resturant</Button>
-        
+          </Box>
+
+          <Box display={{ xs: 'none' , sm:'none'  , lg: 'block', xl: 'block' }} className={`${classes.box}`}>
+            <Link to="/addResturant" style={{textDecoration : 'none'}}>
+              <Button className={classes.signup_resturant}>Add Resturant</Button>  
+            </Link>
+          </Box>
+
         </Toolbar>
       </AppBar>
 
@@ -217,7 +255,7 @@ export default function Navbar() {
                 </Button>
 
                 <Button fullWidth='true' className={classes.gmail_btn} 
-                startIcon={<GmailIcon/>}
+                  startIcon={<GmailIcon/>}
                  > 
                 Login with Gmail  
                 </Button>
@@ -303,10 +341,9 @@ export default function Navbar() {
                 />
 
                 <Button fullWidth='true' className={classes.submit_btn} > Signup </Button>
-
-                <hr/>
-
-                  
+                
+                <hr/>     
+                
                 <Button fullWidth='true' variant='text' style={{fontSize : '100%'}} onClick={handleLoginOpen} > <b> ALL READY MEMBER ?  </b> </Button>
                 
             </div>

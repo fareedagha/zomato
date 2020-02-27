@@ -1,12 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIcon from '@material-ui/icons/Phone';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
  
     root: {
     backgroundColor : 'rgb(40 , 44 , 53)',
@@ -41,11 +41,18 @@ const useStyles = makeStyles(theme => ({
    margin : '5px'
   }
 
-}));
+});
 
-export default function AutoGrid() {
-  const classes = useStyles();
+class  Footer extends React.Component {
+  
+  constructor(){
+    super()
+    this.state = {
+    }
+  }
 
+ render(){
+  const {classes} = this.props; 
   return (
     <div className={classes.root}>
       <Grid container spacing={5}>
@@ -81,5 +88,7 @@ export default function AutoGrid() {
       
       </Grid>
     </div>
-  );
+  )}
 }
+
+export default withStyles(useStyles)(Footer);
