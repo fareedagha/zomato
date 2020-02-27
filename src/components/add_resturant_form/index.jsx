@@ -4,63 +4,10 @@ import { Grid , Paper , Select , MenuItem , Checkbox , Button , InputLabel , Tex
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
+import {city} from '../../constants/index'
 
 
 
-const useStyles = theme => ({
-    
-    root: {
-      backgroundColor : 'rgb(243 , 243 , 243)' ,
-      width : '100%' ,
-      minHeight : '80vh'
-    },
-
-    description_div : {
-     borderRadius : '1px' ,
-     height:'auto',
-     padding:'10px',
-     marginTop : '20px'
-    },
-
-    form_div:{
-        border : 'solid 1px rgb(223 , 223 , 223)' ,
-        borderRadius : '1px' ,
-        height:'auto',
-        padding:'10px',
-        backgroundColor : 'white',
-        marginTop : '15%'
-    },
-
-    input_item_div:{
-       height:'auto' ,
-       backgroundColor : 'white' ,
-       padding : '10px',
-       border : 'solid 1px rgb(223 , 223 , 223)'
-    },
-
-    btn_class:{
-        marginTop : '20px' ,
-        height:'40px' ,
-        fontSize : '15px'
-    },
-
-    radio_form:{
-
-    },
-
-    time_spinner: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-      },
-
-      submit_btn:{
-          backgroundColor : 'rgb(9 , 158 , 68)' ,
-          marginTop : '20px' ,
-          height : '50px' ,
-          color : 'white'
-      }
-
-  });
 
 class ResturantRegisteration extends React.Component {
 
@@ -72,17 +19,7 @@ class ResturantRegisteration extends React.Component {
             seatingInResturant : '' ,
             paymentType : '' ,
             addMoreBtn : false ,
-       
-            city:[
-                {
-                  value: 'Karachi',
-                  label: 'Karachi',
-                },
-                {
-                  value: 'Lahore',
-                  label: 'Lahore',
-                },
-              ]
+    
         }
 
     }
@@ -100,11 +37,34 @@ class ResturantRegisteration extends React.Component {
             this.setState({addMoreBtn : false});
         }
     }
+formControl=()=>{
+    const {classes} = this.props;
+    return(
+        <FormControl component="fieldset" className={`${classes.radio_form}`} >
+        <FormLabel component="legend">OPENING STATUS</FormLabel>
+        <RadioGroup aria-label="position" name="resturantOpeningStatus" onChange={(e)=>{this.handlestate(e)}} row>
+           
+           <FormControlLabel
+            value="already_open"
+            control={<Radio color="primary" />}
+            label="placed already open"
+            labelPlacement="end"
+            />
 
+            <FormControlLabel
+            value="open_soon"
+            control={<Radio color="primary" />}
+            label="Placed opening soon"
+            labelPlacement="end"
+            />
+        </RadioGroup>
+    </FormControl>
+    )
+}
 render(){
 
     const {classes} = this.props;
-    const { city , addMoreBtn} = this.state; 
+    const { addMoreBtn} = this.state; 
     return(
         <div>
             <Grid container className={classes.root} spacing={2} justify='center'>
@@ -152,25 +112,7 @@ render(){
 
                         <br/>
                         
-                        <FormControl component="fieldset" className={`${classes.radio_form}`} >
-                            <FormLabel component="legend">OPENING STATUS</FormLabel>
-                            <RadioGroup aria-label="position" name="resturantOpeningStatus" onChange={(e)=>{this.handlestate(e)}} row>
-                               
-                               <FormControlLabel
-                                value="already_open"
-                                control={<Radio color="primary" />}
-                                label="placed already open"
-                                labelPlacement="end"
-                                />
-
-                                <FormControlLabel
-                                value="open_soon"
-                                control={<Radio color="primary" />}
-                                label="Placed opening soon"
-                                labelPlacement="end"
-                                />
-                            </RadioGroup>
-                        </FormControl>
+                       {this.formControl()}
 
                 </div>
             
@@ -435,5 +377,58 @@ render(){
         </div>
     )}
 } 
+const useStyles = theme => ({
+    
+    root: {
+      backgroundColor : 'rgb(243 , 243 , 243)' ,
+      width : '100%' ,
+      minHeight : '80vh'
+    },
 
+    description_div : {
+     borderRadius : '1px' ,
+     height:'auto',
+     padding:'10px',
+     marginTop : '20px'
+    },
+
+    form_div:{
+        border : 'solid 1px rgb(223 , 223 , 223)' ,
+        borderRadius : '1px' ,
+        height:'auto',
+        padding:'10px',
+        backgroundColor : 'white',
+        marginTop : '15%'
+    },
+
+    input_item_div:{
+       height:'auto' ,
+       backgroundColor : 'white' ,
+       padding : '10px',
+       border : 'solid 1px rgb(223 , 223 , 223)'
+    },
+
+    btn_class:{
+        marginTop : '20px' ,
+        height:'40px' ,
+        fontSize : '15px'
+    },
+
+    radio_form:{
+
+    },
+
+    time_spinner: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+      },
+
+      submit_btn:{
+          backgroundColor : 'rgb(9 , 158 , 68)' ,
+          marginTop : '20px' ,
+          height : '50px' ,
+          color : 'white'
+      }
+
+  });
 export default withStyles(useStyles)(ResturantRegisteration)
