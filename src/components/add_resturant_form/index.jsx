@@ -7,21 +7,16 @@ import AddLocationIcon from '@material-ui/icons/AddLocation';
 import {city} from '../../constants/index'
 
 
-
-
 class ResturantRegisteration extends React.Component {
 
     constructor(){
         super();
         this.state = {
-       
             resturantOpeningStatus : '' ,
             seatingInResturant : '' ,
             paymentType : '' ,
-            addMoreBtn : false ,
-    
+            showMoreFields : false ,
         }
-
     }
 
     handlestate(e){
@@ -30,353 +25,299 @@ class ResturantRegisteration extends React.Component {
     }
 
     handleAddMore(){
-        const {addMoreBtn} = this.state;
-        if(addMoreBtn == false){
-            this.setState({addMoreBtn : true});
+        const {showMoreFields} = this.state;
+        if(showMoreFields == false){
+            this.setState({showMoreFields : true});
         }else{
-            this.setState({addMoreBtn : false});
+            this.setState({showMoreFields : false});
         }
     }
-formControl=()=>{
+
+resturantBasicInformation = () =>{
     const {classes} = this.props;
     return(
-        <FormControl component="fieldset" className={`${classes.radio_form}`} >
-        <FormLabel component="legend">OPENING STATUS</FormLabel>
-        <RadioGroup aria-label="position" name="resturantOpeningStatus" onChange={(e)=>{this.handlestate(e)}} row>
-           
-           <FormControlLabel
-            value="already_open"
-            control={<Radio color="primary" />}
-            label="placed already open"
-            labelPlacement="end"
-            />
+            <div className={`${classes.input_item_div}`}>
+                {/* resturant name */}
+                <TextField fullWidth='true' id="" label="Resturant Name" variant="outlined" margin='normal' /> 
+                
+                {/* cities */}
+                <Grid  xs={12} md={6} lg={4}>
+                    <TextField fullWidth='true' id="" label="City" variant="outlined" margin='normal' select SelectProps={{ native: true}}> 
+                        {city.map(option => (
+                            <option key={option.value} value={option.value}>
+                            {option.label}
+                            </option>
+                        ))}
+                    </TextField>
+                </Grid>
+               
+               {/* Phone and STD number */}
+                <Grid container  spacing={2}>
+                    <Grid item xs={12} md={6} lg={4}>
+                        <TextField  fullWidth='true' item id=""  label="STD" variant="outlined" margin='normal'/>  
+                    </Grid>
+                        
+                    <Grid item xs={12} md={6} lg={4}>
+                        <TextField   fullWidth='true' id=""  label="Phone Number" variant="outlined" margin='normal'/>
+                    </Grid>
+                            
+                    <br/>    
+                </Grid>
+                
+                {/* Resturant Opening Status Fields*/}
+                <FormControl component="fieldset" className={`${classes.radio_form}`}>
+                    
+                    <FormLabel component="legend">OPENING STATUS</FormLabel>
+                    
+                    <RadioGroup aria-label="position" name="resturantOpeningStatus" onChange={(e)=>{this.handlestate(e)}} row>
+                        <FormControlLabel value="already_open" control={<Radio color="primary" />} label="placed already open" labelPlacement="end"/>
+                        <FormControlLabel value="open_soon" control={<Radio color="primary" />} label="Placed opening soon" labelPlacement="end" />
+                    </RadioGroup>
 
-            <FormControlLabel
-            value="open_soon"
-            control={<Radio color="primary" />}
-            label="Placed opening soon"
-            labelPlacement="end"
-            />
-        </RadioGroup>
-    </FormControl>
+                </FormControl>
+               
+            </div>
+        )
+    } 
+    
+resturantShowMoreField = () => {
+    const {classes} = this.props;  
+    const {addMoreBtn} = this.state; 
+    return(
+        <Button variant="outlined" color="default" className = {classes.btn_class}  fullWidth='true'
+           endIcon={
+             !addMoreBtn && <ExpandLessIcon/> || 
+              addMoreBtn && <ExpandMoreIcon/> 
+             }
+           onClick={()=>{this.handleAddMore()}}
+           >
+           + Add more fields
+           </Button>
+    )
+}    
+
+resturantLocation = () => {
+    const {classes} = this.props;    
+    return(
+        <div className={`${classes.input_item_div}`}>
+
+            <TextField  fullWidth='true' item id=""  label="Add your Address" variant="outlined" margin='normal'/>
+    
+            <Button
+            variant="outlined"
+            color="default"
+            className = {classes.btn_class}
+            endIcon={<AddLocationIcon fontSize="large"/>}         
+            >
+            + Add image
+            </Button>
+        
+       </div>
     )
 }
+
+resturantCharacteristic = () => {
+
+    const {classes} = this.props;
+
+    return(
+        <div className={`${classes.input_item_div}`}>
+                        
+             <FormControl component="fieldset" className={`${classes.radio_form}`} >  
+
+                {/* Seating Fields */}
+                <FormLabel component="legend">SEATING</FormLabel>
+                
+                <RadioGroup aria-label="position" name="seatingInResturant"  onChange={(e)=>{this.handlestate(e)}} row>
+                    <FormControlLabel value="available" control={<Radio color="primary" />} label="Available" labelPlacement="end"/>
+                    <FormControlLabel value="not_available" control={<Radio color="primary" />} label="Not Available" labelPlacement="end"/>
+                </RadioGroup>
+
+              </FormControl>
+
+              <br/>
+
+             {/* Services Fields */}
+              <FormControl component="fieldset">
+           
+                <FormLabel component="legend">SERVICES</FormLabel>
+           
+                <FormGroup aria-label="position" row>
+                    <FormControlLabel value="breakfast" control={<Checkbox color="primary" />} label="Break Fast" labelPlacement="end"/>
+                    <FormControlLabel value="lunch" control={<Checkbox color="primary" />} label="Lunch" labelPlacement="end"/>
+                    <FormControlLabel value="dinner" control={<Checkbox color="primary" />} label="Dinner" labelPlacement="end"/>
+                    <FormControlLabel value="cafe" control={<Checkbox color="primary" />} label="Cafe" labelPlacement="end"/>
+                    <FormControlLabel value="nightlife" control={<Checkbox color="primary" />} label="Night Life" labelPlacement="end"/>
+                </FormGroup>
+
+             </FormControl>
+        
+             <br/>
+
+            {/* Payment Type Fileda */}
+             <FormControl component="fieldset" className={`${classes.radio_form}`} >
+                <FormLabel component="legend">PAYMENT</FormLabel>
+                    
+                    <RadioGroup aria-label="position" name=" paymentType"  onChange={(e)=>{this.handlestate(e)}} row>
+                        <FormControlLabel value="cash" control={<Radio color="primary" />} label="Cash" labelPlacement="end"/>
+                        <FormControlLabel value="cash_card" control={<Radio color="primary" />} label="Cash and Card" labelPlacement="end" />
+                   </RadioGroup>
+
+            </FormControl>
+
+        </div>
+    )
+}
+
+resturantTiming = () =>{
+    const { classes } = this.props;
+    return(
+        <div  className={`${classes.input_item_div}`}>
+            
+            {/* Label of resturant opening Days  */}
+            <FormControl component="fieldset">
+                <FormLabel component="legend"></FormLabel>
+                
+                <FormGroup aria-label="position" row>
+                    <FormControlLabel   value="monday" control={<Checkbox color="primary" />}  label="Monday"    labelPlacement="end"/>
+                    <FormControlLabel value="tuesday" control={<Checkbox color="primary" />}   label="Tuesday"   labelPlacement="end"/>
+                    <FormControlLabel value="wednesday" control={<Checkbox color="primary" />} label="Wednesday" labelPlacement="end"/>
+                    <FormControlLabel value="thursday" control={<Checkbox color="primary" />}  label="Thursday"  labelPlacement="end" />
+                    <FormControlLabel value="friday" control={<Checkbox color="primary" />}    label="Friday"    labelPlacement="end"/>
+                    <FormControlLabel value="saturday" control={<Checkbox color="primary" />}  label="Saturday"  labelPlacement="end"/>
+                    <FormControlLabel value="sunday" control={<Checkbox color="primary" />} label="Sunday" labelPlacement="end" />
+               </FormGroup>
+       
+             </FormControl>
+
+            {/* Spinners of Timing  */}
+            <Grid>
+
+                <FormControl variant="outlined" className={classes.time_spinner}>
+                    <InputLabel id="demo-simple-select-filled-label">From</InputLabel>
+                        <Select labelId="demo-simple-select-filled-label"   id="demo-simple-select-filled">
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                </FormControl>
+
+                <FormControl variant="outlined" className={classes.time_spinner}>
+                    <InputLabel id="demo-simple-select-filled-label">To</InputLabel>
+                        <Select labelId="demo-simple-select-filled-label" id="demo-simple-select-filled">
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                 </FormControl>
+
+                <Button variant="outlined" color="default" className = {classes.btn_class} size = 'large'>
+                    <b> + Add Time </b>
+                </Button>
+
+            </Grid>
+       
+    </div>
+    )
+}
+
+resturantContactInformation = () =>{
+    const { classes } = this.props;
+
+    return(
+        <div  className={`${classes.input_item_div}`}>
+            <Grid container  spacing={2}>
+                <Grid item xs={12} md={6} lg={4}>
+                    <TextField  fullWidth='true' item id=""  label="Resturant Email" variant="outlined" margin='normal'/>  
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={4}>
+                    <TextField   fullWidth='true' id=""  label="Resturant Website" variant="outlined" margin='normal'/>
+                </Grid>
+            </Grid>
+        </div>
+    )
+}
+
+resturantWork = () =>{
+    const {classes} = this.props
+ return(
+    <div className={`${classes.form_div}`} > 
+    <h5> How its Work </h5>
+    <ul>
+        <li> If you are the owner of a restaurant, or if you are a user who's discovered a place not listed on Zomato, let us know using this form  </li>
+        <li> Once you send the information to us, our awesome content team will verify it. To help speed up the process, please provide a contact number or email address.  </li>
+        <li> That's it! Once verified the listing will start appearing on Zomato </li>
+    </ul>
+   </div> 
+ )
+}
+
+
 render(){
 
     const {classes} = this.props;
-    const { addMoreBtn} = this.state; 
+    const { showMoreFields} = this.state; 
     return(
         <div>
             <Grid container className={classes.root} spacing={2} justify='center'>
-               
+                
                 <Grid item xs={12}  md={9} lg={8}  xl={8} >
                    
-                    <div  className={`${classes.description_div}`} > 
-                     <h3> ADD A RESTURANT </h3>
-                     <hr/>
-                       <h5> Basic Information </h5>
-                
-                        <div className={`${classes.input_item_div}`}>
-                          <TextField fullWidth='true' id="" label="Resturant Name" variant="outlined" margin='normal' /> 
-                          
-                          <Grid  xs={12} md={6} lg={4}>
+                    <div  className={`${classes.description_div}`} >      
+                        <h3> ADD A RESTURANT </h3>
+                        <hr/>
 
-                          <TextField fullWidth='true'
-                                     id="" 
-                                     label="City" 
-                                     variant="outlined" 
-                                     margin='normal'
-                                     select 
-                                     SelectProps={{ native: true}}
-                                     > 
-
-                                     {city.map(option => (
-                                            <option key={option.value} value={option.value}>
-                                            {option.label}
-                                            </option>
-                                        ))}
-                        </TextField>
-                        </Grid>
-
-                        <Grid container  spacing={2}>
-                            
-                            <Grid item xs={12} md={6} lg={4}>
-                                <TextField  fullWidth='true' item id=""  label="STD" variant="outlined" margin='normal'/>  
-                            </Grid>
-
-                            <Grid item xs={12} md={6} lg={4}>
-                              <TextField   fullWidth='true' id=""  label="Phone Number" variant="outlined" margin='normal'/>
-                            </Grid>
-                        
-                        </Grid>
-
-                        <br/>
-                        
-                       {this.formControl()}
-
-                </div>
+                        <h5> Basic Information </h5>
+                        {/* Contain All fieds of Basic Information */}
+                        {this.resturantBasicInformation()} 
             
-                {/* <TextField  select SelectProps={{ native: true}}  fullWidth='true' id=""  label="+ Add more fields" variant="outlined" margin='normal'/> */}
+                        {/* Show More Fields Button */}
+                        {this.resturantShowMoreField()}
 
-                
-                <Button
-                    variant="outlined"
-                    color="default"
-                    className = {classes.btn_class}
-                    endIcon={
-                    !addMoreBtn && <ExpandLessIcon/> || 
-                    addMoreBtn && <ExpandMoreIcon/> 
-                    }         
-                    fullWidth='true'
-                    onClick={()=>{this.handleAddMore()}}
-                     >
-                    + Add more fields
-                    </Button>
- 
-                    { addMoreBtn && <div>
-                
-                         <br/>
-                         <h5> Location </h5>
-                
-                         <div className={`${classes.input_item_div}`}>
-
-                         <TextField  fullWidth='true' item id=""  label="Add your Address" variant="outlined" margin='normal'/>
+                        { showMoreFields && 
                          
-
-                         <Button
-                            variant="outlined"
-                            color="default"
-                            className = {classes.btn_class}
-                            endIcon={<AddLocationIcon fontSize="large"/>}         
-                            >
-                            + Add image
-                          </Button>
-                         </div>
-
-                         <br/>
-                         <h5> Characteristic </h5>
+                         <div>
                 
-                         <div className={`${classes.input_item_div}`}>
-                        
-                         <FormControl component="fieldset" className={`${classes.radio_form}`} >
-                            <FormLabel component="legend">SEATING</FormLabel>
-                            <RadioGroup aria-label="position" name="seatingInResturant"  onChange={(e)=>{this.handlestate(e)}} row>
-                               
-                               <FormControlLabel
-                                value="available"
-                                control={<Radio color="primary" />}
-                                label="Available"
-                                labelPlacement="end"
-                                />
-
-                                <FormControlLabel
-                                value="not_available"
-                                control={<Radio color="primary" />}
-                                label="Not Available"
-                                labelPlacement="end"
-                                />
-                            </RadioGroup>
-                        </FormControl>
-
-                        <br/>
-
-                        <FormControl component="fieldset">
-                            <FormLabel component="legend">SERVICES</FormLabel>
-                            <FormGroup aria-label="position" row>
-                                <FormControlLabel
-                                value="breakfast"
-                                control={<Checkbox color="primary" />}
-                                label="Break Fast"
-                                labelPlacement="end"
-                                />
-                                <FormControlLabel
-                                value="lunch"
-                                control={<Checkbox color="primary" />}
-                                label="Lunch"
-                                labelPlacement="end"
-                                />
-                                <FormControlLabel
-                                value="dinner"
-                                control={<Checkbox color="primary" />}
-                                label="Dinner"
-                                labelPlacement="end"
-                                />
-                                <FormControlLabel
-                                value="cafe"
-                                control={<Checkbox color="primary" />}
-                                label="Cafe"
-                                labelPlacement="end"
-                                />
-                                 <FormControlLabel
-                                value="nightlife"
-                                control={<Checkbox color="primary" />}
-                                label="Night Life"
-                                labelPlacement="end"
-                                />
-                            </FormGroup>
-                        </FormControl>
-                         
-                         <br/>
-
-                         <FormControl component="fieldset" className={`${classes.radio_form}`} >
-                            <FormLabel component="legend">PAYMENT</FormLabel>
-                            <RadioGroup aria-label="position" name=" paymentType"  onChange={(e)=>{this.handlestate(e)}} row>
-                               
-                               <FormControlLabel
-                                value="cash"
-                                control={<Radio color="primary" />}
-                                label="Cash"
-                                labelPlacement="end"
-                                />
-
-                                <FormControlLabel
-                                value="cash_card"
-                                control={<Radio color="primary" />}
-                                label="Cash and Card"
-                                labelPlacement="end"
-                                />
-                            </RadioGroup>
-                        </FormControl>
-
-                    </div>
-
-                    <br/>
-                    <h5> Timings </h5>
-                   
-                    <div  className={`${classes.input_item_div}`}>
-                        <FormControl component="fieldset">
-                            <FormLabel component="legend"></FormLabel>
-                            <FormGroup aria-label="position" row>
-                                <FormControlLabel
-                                value="monday"
-                                control={<Checkbox color="primary" />}
-                                label="Monday"
-                                labelPlacement="end"
-                                />
-                                <FormControlLabel
-                                value="tuesday"
-                                control={<Checkbox color="primary" />}
-                                label="Tuesday"
-                                labelPlacement="end"
-                                />
-                                <FormControlLabel
-                                value="wednesday"
-                                control={<Checkbox color="primary" />}
-                                label="Wednesday"
-                                labelPlacement="end"
-                                />
-                                <FormControlLabel
-                                value="thursday"
-                                control={<Checkbox color="primary" />}
-                                label="Thursday"
-                                labelPlacement="end"
-                                />
-                                <FormControlLabel
-                                value="friday"
-                                control={<Checkbox color="primary" />}
-                                label="Friday"
-                                labelPlacement="end"
-                                />
-
-                                <FormControlLabel
-                                value="saturday"
-                                control={<Checkbox color="primary" />}
-                                label="Saturday"
-                                labelPlacement="end"
-                                />
-
-                               <FormControlLabel
-                                value="sunday"
-                                control={<Checkbox color="primary" />}
-                                label="Sunday"
-                                labelPlacement="end"
-                                />
-
-                            </FormGroup>
-                        </FormControl>
-
-                        <Grid>
-
-                        <FormControl variant="outlined" className={classes.time_spinner}>
-                        <InputLabel id="demo-simple-select-filled-label">From</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                        </FormControl>
-
-
-
-                        <FormControl variant="outlined" className={classes.time_spinner}>
-                        <InputLabel id="demo-simple-select-filled-label">To</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                        </FormControl>
-
-                        <Button
-                            variant="outlined"
-                            color="default"
-                            className = {classes.btn_class}   
-                            size = 'large'    
-                            >
-                           <b> + Add Time </b>
-                          </Button>
-
-                        </Grid>
-                       
-                    </div>
-
-                    <br/>
-                    <h5> Contact Information </h5>
-
-                    <div  className={`${classes.input_item_div}`}>
-                    <Grid container  spacing={2}>
-                            
-                            <Grid item xs={12} md={6} lg={4}>
-                                <TextField  fullWidth='true' item id=""  label="Resturant Email" variant="outlined" margin='normal'/>  
-                            </Grid>
-
-                            <Grid item xs={12} md={6} lg={4}>
-                              <TextField   fullWidth='true' id=""  label="Resturant Website" variant="outlined" margin='normal'/>
-                            </Grid>
-                        
-                        </Grid>
-                    </div>
-
+                            <br/>
+                            <h5> Location </h5>
+                            {/* contain Location Fields */}
+                            {this.resturantLocation()}
                     
-                    <Button className={classes.submit_btn} fullWidth='true' variant="outlined"  size = 'large'> Submit </Button>
+                            <br/>
+                            <h5> Characteristic </h5>
+                            {/* contain All Characteristics Fields */}
+                            {this.resturantCharacteristic()}
+                
+                        
+                            <br/>
+                            <h5> Timings </h5>
+                            {/* Conatin resturant opening days and Timing Fields */}
+                            {this.resturantTiming()}
 
-                </div>
-             }
 
-            </div>
-        </Grid>
+                             <br/>
+                             <h5> Contact Information </h5>
+                             {/* contain Fields of Contact info */}
+                             {this.resturantContactInformation()}
 
+                            <Button className={classes.submit_btn} fullWidth='true' variant="outlined"  size = 'large'> Submit </Button>
+
+                         </div>
+                        }
+                    </div>
+            
+             </Grid>
                 <Grid xs={12}  md={2} lg={2}  xl={2} >
-                    <div className={`${classes.form_div}`} > 
-                     <h5> How its Work </h5>
-                     <ul>
-                         <li> If you are the owner of a restaurant, or if you are a user who's discovered a place not listed on Zomato, let us know using this form  </li>
-                         <li> Once you send the information to us, our awesome content team will verify it. To help speed up the process, please provide a contact number or email address.  </li>
-                         <li> That's it! Once verified the listing will start appearing on Zomato </li>
-                     </ul>
-                    </div> 
+                    {/* Div of "How its Work" */}
+                    {this.resturantWork()}
                 </Grid>
-
              </Grid>    
         </div>
     )}
 } 
+
+
 const useStyles = theme => ({
     
     root: {

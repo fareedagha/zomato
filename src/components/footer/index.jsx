@@ -6,42 +6,6 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIcon from '@material-ui/icons/Phone';
 
-const useStyles = theme => ({
- 
-    root: {
-    backgroundColor : 'rgb(40 , 44 , 53)',
-    textAlign : 'center' ,
-    padding : '10px' ,
-    width : '100%' ,
-  },
-
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-
-  ul_items : {
-      listStyleType : 'none' ,
-      color : 'white'
-  },
-
-  li_items : {
-    color:'white' ,
-    fontSize:'18px'
-  },
-
-  footer_head:{
-   color : 'white' , 
-  },
-
-  contact_icons : {
-   fontSize : '25px' ,
-   color : 'white' ,
-   margin : '5px'
-  }
-
-});
 
 class  Footer extends React.Component {
   
@@ -90,5 +54,43 @@ class  Footer extends React.Component {
     </div>
   )}
 }
+
+const useStyles = theme => ({
+ 
+  root: {
+  backgroundColor : 'rgb(40 , 44 , 53)',
+  textAlign : 'center' ,
+  padding : '10px' ,
+  width : '100%' ,
+},
+
+paper: {
+  padding: theme.spacing(2),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+},
+
+ul_items : {
+    listStyleType : 'none' ,
+    color : 'white'
+},
+
+li_items : {
+  color:'white' ,
+  fontSize:'18px'
+},
+
+footer_head:{
+ color : 'white' , 
+},
+
+contact_icons : {
+ fontSize : '25px' ,
+ color : 'white' ,
+ margin : '5px'
+}
+
+});
+
 
 export default withStyles(useStyles)(Footer);
